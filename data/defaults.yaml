@@ -1,0 +1,16 @@
+lookup_options:
+  mcollective_agent_query::gem_dependencies:
+    merge:
+      strategy: deep
+  mcollective_agent_query::package_dependencies:
+    merge:
+      strategy: deep
+  mcollective_agent_query::config:
+    merge:
+      strategy: deep
+  mcollective_agent_query::client_config:
+    merge:
+      strategy: deep
+  mcollective_agent_query::server_config:
+    merge:
+      strategy: deep

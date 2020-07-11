@@ -1,0 +1,123 @@
+{
+  "$schema": "https://choria.io/schemas/mcorpc/ddl/v1/agent.json",
+  "metadata": {
+    "name": "query",
+    "description": "Query data from various HTTP endpoints",
+    "author": "Yury Bushmelev <jay4mail@gmail.com>",
+    "license": "Apache-2.0",
+    "version": "1.0.0",
+    "url": "https://github.com/jay7x/jay7x-mcollective_agent_query",
+    "timeout": 60
+  },
+  "actions": [
+    {
+      "action": "exporter",
+      "input": {
+        "url": {
+          "prompt": "URL",
+          "description": "Prometheus exporter URL to query",
+          "type": "string",
+          "default": null,
+          "optional": false,
+          "validation": ".*",
+          "maxlength": 65536
+        },
+        "metrics": {
+          "prompt": "Metrics",
+          "description": "Metrics to return from URL",
+          "type": "array",
+          "default": [
+
+          ],
+          "optional": true
+        }
+      },
+      "output": {
+        "metrics": {
+          "description": "Metrics returned",
+          "display_as": "Metrics",
+          "default": {
+          },
+          "type": "hash"
+        }
+      },
+      "display": "always",
+      "description": "Returns Prometheus exporter metrics requested"
+    },
+    {
+      "action": "rest",
+      "input": {
+        "url": {
+          "prompt": "URL",
+          "description": "API URL to query",
+          "type": "string",
+          "default": null,
+          "optional": false,
+          "validation": ".*",
+          "maxlength": 10240
+        },
+        "method": {
+          "prompt": "Method",
+          "description": "HTTP method to use",
+          "type": "list",
+          "default": "GET",
+          "optional": true,
+          "list": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "HEAD",
+            "LIST"
+          ]
+        },
+        "headers": {
+          "prompt": "Headers",
+          "description": "HTTP headers to send",
+          "type": "hash",
+          "default": {
+          },
+          "optional": true
+        },
+        "data": {
+          "prompt": "Data",
+          "description": "HTTP data to send",
+          "type": "string",
+          "default": "",
+          "optional": true,
+          "validation": ".*",
+          "maxlength": 65536
+        }
+      },
+      "output": {
+        "code": {
+          "description": "HTTP Status code",
+          "display_as": "Code",
+          "default": "",
+          "type": "string"
+        },
+        "message": {
+          "description": "HTTP reply message",
+          "display_as": "Message",
+          "default": "",
+          "type": "string"
+        },
+        "body": {
+          "description": "HTTP reply body",
+          "display_as": "Body",
+          "default": "",
+          "type": "string"
+        },
+        "headers": {
+          "description": "HTTP reply headers",
+          "display_as": "Headers",
+          "default": {
+          },
+          "type": "hash"
+        }
+      },
+      "display": "always",
+      "description": "Returns REST API reply"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+---
+mcollective_agent_query::config_name: query
+mcollective_agent_query::common_files:
+- agent/query.ddl
+- agent/query.json
+mcollective_agent_query::executable_files: []
+mcollective_agent_query::common_directories: []
+mcollective_agent_query::server_files:
+- agent/query.rb
+mcollective_agent_query::server_directories: []
+mcollective_agent_query::client_files: []
+mcollective_agent_query::client_directories: []
+

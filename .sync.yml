@@ -1,0 +1,34 @@
+# PDK configuration
+# Run `pdk update` after change
+---
+Gemfile:
+  required:
+    ':development':
+      - gem: 'webmock'
+      - gem: 'mcollective-test'
+      - gem: 'mcollective-client'
+
+'spec/spec_helper.rb':
+  mock_with: ':mocha' # required by mcollective-test
+  strict_level: ':error'
+  spec_overrides: |-
+    require 'mcollective'
+    require 'mcollective/test'
+    require 'mocha'
+
+    RSpec.configure do |c|
+      c.include(MCollective::Test::Matchers)
+
+      c.before :each do
+        MCollective::PluginManager.clear
+      end
+    end
+
+.rubocop.yml:
+  default_configs:
+    AllCops:
+      TargetRubyVersion: '2.4'
+    Style/FrozenStringLiteralComment:
+      Enabled: false
+    Layout/LeadingCommentSpace:
+      Enabled: false
