@@ -12,10 +12,16 @@ Query data from various network sources
 
 The mcollective_agent_query module is generated automatically, based on the source from https://github.com/jay7x/jay7x-mcollective_agent_query
 
-Available Actions:
+Available Actions and their arguments:
 
   * **exporter** - Returns Prometheus exporter metrics requested
+    * `url`
+    * `metrics`
   * **rest** - Returns REST API reply
+    * `url`
+    * `method`
+    * `headers`
+    * `data`
 
 ## Usage
 
@@ -24,6 +30,40 @@ You can include this module into your infrastructure as any other module, but as
 ```yaml
 mcollective::plugin_classes:
   - mcollective_agent_query
+```
+
+### How to use the agent via CLI
+
+This agent was designed primarily to use in a playbook. Though you may try to use it via `mco rpc query (exporter|rest)` call. It's impossible to pass array on input at the moment. So please use JSON file as input then.
+
+### How to use the agent in a playbook
+
+You can use this task as any other Choria tasks. Please refer to [Choria.io docs](https://choria.io/docs/playbooks/tasks/) for more info.
+
+`query.exporter` example:
+```
+$res = choria::task(
+  action     => 'query.exporter',
+  nodes      => ['node1.tld', 'node2.tld'],
+  properties => {
+    url     => 'http://127.0.0.1:9419/metrics',
+    metrics => [ 'rabbitmq_running' ],
+  },
+)
+```
+
+`query.rest` example:
+```
+$res = choria::task(
+  action     => 'query.rest',
+  nodes      => ['node1.tld', 'node2.tld'],
+  properties => {
+    url     => 'http://localhost:8080/api/v1/list',
+    method  => 'GET',
+    headers => {},
+    data    => '',
+  },
+)
 ```
 
 ## Configuration
